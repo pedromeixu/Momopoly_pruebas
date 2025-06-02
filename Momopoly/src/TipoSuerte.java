@@ -1,3 +1,3 @@
-public enum TipoCasilla {
+public enum TipoSuerte {
     MOVER, QUITARDINERO;
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Distrito extends Casilla{
@@ -19,17 +20,42 @@ public class Distrito extends Casilla{
         this.precioCasa = precioCasa;
     }
 
-    public void comprarDistrito(Jugador dono) {
-        if (dono.dinero < precio) {
-            this.dono = dono;
-            dono.dinero -= precio;
+    public void cobrarAlquiler(Jugador propietario, Jugador inquilino) {
+        Iterator<Integer> it = alquiler.keySet().iterator();
+        int dineroJugadorPropietario = propietario.getDinero();
+        int dineroInquilino = inquilino.getDinero();
+
+        while (it.hasNext()) {
+            if (it.next() == this.casas) {
+                dineroInquilino -= alquiler.get(it.next());
+                inquilino.setDinero(dineroInquilino);
+                dineroJugadorPropietario += alquiler.get(it.next());
+                propietario.setDinero(dineroJugadorPropietario);
+            }
         }
     }
 
-    public void construirEnDistrito(int numeroCasas) {
-        if (dono.dinero >= precioCasa * numeroCasas && numeroCasas <= 3) {
-            dono.dinero -= precioCasa * numeroCasas;
-            casas += numeroCasas;
-        }
+    public int getPrecio() {
+        return precio;
+    }
+
+    public int getCasas() {
+        return casas;
+    }
+
+    public int getPrecioCasa() {
+        return precioCasa;
+    }
+
+    public Jugador getDono() {
+        return dono;
+    }
+
+    public void setDono(Jugador dono) {
+        this.dono = dono;
+    }
+
+    public void setCasas(int casas) {
+        this.casas = casas;
     }
 }

@@ -1,18 +1,17 @@
 import java.util.ArrayList;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class Suerte extends Casilla{
-    private TipoCasilla tipo;
+    private TipoSuerte tipo;
 
-    public Suerte(String nombre, ArrayList<Integer> posicion, TipoCasilla tipo) {
+    public Suerte(String nombre, ArrayList<Integer> posicion, TipoSuerte tipo) {
         super(nombre, posicion);
         this.tipo = tipo;
     }
 
     public void triggerSuerte(Jugador jugador) {
-        if (tipo == TipoCasilla.MOVER) {
+        if (tipo == TipoSuerte.MOVER) {
             moverJugador(jugador);
-        } else if (tipo == TipoCasilla.QUITARDINERO) {
+        } else if (tipo == TipoSuerte.QUITARDINERO) {
             modificarDinero(jugador);
         }
     }
@@ -20,13 +19,14 @@ public class Suerte extends Casilla{
     public void moverJugador(Jugador jugador) {
         int movimiento = 3;
         jugador.moverseConParametros(movimiento);
-
     }
 
     public void modificarDinero(Jugador jugador) {
         int dinero = 200;
-        if (jugador.dinero > dinero) {
-            jugador.dinero -= dinero;
+        int dineroJugador = jugador.getDinero();
+        if (dineroJugador > dinero) {
+            dineroJugador -= dinero;
+            jugador.setDinero(dineroJugador);
         } // meter funcion perder la partida
     }
 }
